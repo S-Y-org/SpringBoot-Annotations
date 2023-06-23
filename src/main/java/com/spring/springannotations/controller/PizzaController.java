@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class PizzaController {
 
     //Lets inject VegPizza dependency/spring bean. For that lets create an instance variable
@@ -65,6 +65,19 @@ public class PizzaController {
 //        return vegPizza.getPizza();
         return pizza.getPizza();
     }
+
+    //Within the init() , we can write the initialization logic
+    private void init() {
+        System.out.println("Initialization Logic");
+    }
+
+
+    private void destroy() {
+        System.out.println("Destruction Logic");  //Once you shutdown/stop the application , u will see this printed in the console
+    }
+
+    //Make sure the init() and destroy() method names should be same as the
+    // values passed in @Bean(initMethod = "value/init" , destroyMethod = "value/destroy" )
 }
 
 
