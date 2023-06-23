@@ -7,12 +7,16 @@ import com.spring.springannotations.service.Pizza;
 import com.spring.springannotations.service.VegPizza;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 //In order to make this class as a config. class we have to annoate the class using @Configuration
 //Whenever we configure a class with @Configuration annotation , then this class becomes
 // a config class and within this config class, we can define a Spring Bean definition
 // using @Bean annotation.
 @Configuration
+//@Lazy  //We can add @Lazy with @Configuration as well. (Just like with @Component)
+//What happens is that all the spring beans that have been configured in this class will
+// be lazily loaded
 public class AppConfig {
 
     //Lets create a method to return an object of VegPizza class
@@ -35,6 +39,8 @@ public class AppConfig {
     //Now lets see how to inject the dependencies
     //Lets create one more spring bean
     @Bean
+    //@Lazy  //We can add @Lazy with @Bean as well.
+    //This spring bean will be then loaded lazily/on-demand
     public Pizza nonVegPizza(){
         return new NonVegPizza();
     }
