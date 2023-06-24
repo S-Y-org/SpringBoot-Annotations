@@ -128,4 +128,15 @@ The main difference between `@Controller` and `@RestController` lies in the resp
 IMPORTANT :
 In summary, `@Controller` is used for traditional web applications where the response is rendered using view templates, while `@RestController` is used for building RESTful APIs where the response is serialized directly into the response body.
 
+===========================================================================
+
+(Q)what is the use of produces and consumes
+
+The `produces` and `consumes` attributes are used to specify the media types (content types) that a RESTful API endpoint can produce and consume, respectively.
+
+1. `produces`: It specifies the media types that the API endpoint can produce as a response. It restricts the response content type that the client can expect from the endpoint. For example, if an endpoint produces JSON data, you can specify `produces = "application/json"` to indicate that the response will be in JSON format. This helps in content negotiation between the client and the server.
+
+2. `consumes`: It specifies the media types that the API endpoint can consume as a request payload. It restricts the content type that the server can accept from the client. For example, if an endpoint consumes JSON data, you can specify `consumes = "application/json"` to indicate that the request payload should be in JSON format. This helps in validating and processing the incoming request payload.
+
+By using `produces` and `consumes` attributes, you can ensure that your RESTful API endpoints adhere to a specific set of media types, which improves interoperability and allows clients and servers to communicate effectively by understanding and respecting the supported content types.
  */
