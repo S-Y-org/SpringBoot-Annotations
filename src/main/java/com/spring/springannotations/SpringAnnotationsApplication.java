@@ -104,13 +104,13 @@ public class SpringAnnotationsApplication {
 
 
         /*==================================================================================*/
-        PropertySourceDemo propertySourceDemo = context.getBean(PropertySourceDemo.class);
-        System.out.println(propertySourceDemo.getHost());
-        System.out.println(propertySourceDemo.getEmail());
-        System.out.println(propertySourceDemo.getPassword());
-
-        System.out.println(propertySourceDemo.getAppName());
-        System.out.println(propertySourceDemo.getAppDesc());
+//        PropertySourceDemo propertySourceDemo = context.getBean(PropertySourceDemo.class);
+//        System.out.println(propertySourceDemo.getHost());
+//        System.out.println(propertySourceDemo.getEmail());
+//        System.out.println(propertySourceDemo.getPassword());
+//
+//        System.out.println(propertySourceDemo.getAppName());
+//        System.out.println(propertySourceDemo.getAppDesc());
 
 
     }//End of main method
