@@ -57,7 +57,15 @@ public class BookController {
             //We can also specify muliple media types as below.
             //Lets say our REST API want to return the response in a JSON and XML format.
             //Then we can specify like below
-            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+            produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE },
+
+            //Lets say our REST API wants to consume the JSON that is sent by the client.
+            //Then we can go ahead and use the consumes attribute
+            //consumes = MediaType.APPLICATION_JSON_VALUE
+
+            //Here also we can specify multiple media types
+            consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }
+
     )
 
     /*@RequestMapping with Multiple URI*/
