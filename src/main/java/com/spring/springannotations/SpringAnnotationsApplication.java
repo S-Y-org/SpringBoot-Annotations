@@ -8,6 +8,7 @@ import com.spring.springannotations.scope.PrototypeBean;
 import com.spring.springannotations.scope.SingletonBean;
 import com.spring.springannotations.service.MyService;
 import com.spring.springannotations.service.VegPizza;
+import com.spring.springannotations.value.ValueAnnotationDemo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -86,6 +87,19 @@ public class SpringAnnotationsApplication {
         //It means application context basically creates the new object/instance for each request.
 
         //IMPORTANT : By Default spirng provides Singleton scope for each spring bean
+
+        /*==================================================================================*/
+
+
+        ValueAnnotationDemo valueAnnotationDemo = context.getBean(ValueAnnotationDemo.class);
+        System.out.println(valueAnnotationDemo.getDefaultName()); //can see that the value we passed in @Value("") will be printed
+
+        System.out.println(valueAnnotationDemo.getHost());
+        System.out.println(valueAnnotationDemo.getEmail());
+        System.out.println(valueAnnotationDemo.getPassword());
+
+        System.out.println(valueAnnotationDemo.getJavaHome());
+        System.out.println(valueAnnotationDemo.getHomeDir());
 
     }//End of main method
 
