@@ -3,6 +3,7 @@ package com.spring.springannotations;
 import com.spring.springannotations.controller.MyController;
 import com.spring.springannotations.controller.PizzaController;
 import com.spring.springannotations.lazy.LazyLoader;
+import com.spring.springannotations.propertysource.PropertySourceDemo;
 import com.spring.springannotations.repository.MyRepository;
 import com.spring.springannotations.scope.PrototypeBean;
 import com.spring.springannotations.scope.SingletonBean;
@@ -52,23 +53,23 @@ public class SpringAnnotationsApplication {
 
         /*==================================================================================*/
 
-        SingletonBean singletonBean1 = context.getBean(SingletonBean.class);
-        System.out.println(singletonBean1.hashCode());
-
-        SingletonBean singletonBean2 = context.getBean(SingletonBean.class);
-        System.out.println(singletonBean2.hashCode());
-
-        SingletonBean singletonBean3 = context.getBean(SingletonBean.class);
-        System.out.println(singletonBean3.hashCode());
-
-        PrototypeBean prototypeBean1 = context.getBean(PrototypeBean.class);
-        System.out.println(prototypeBean1.hashCode());
-
-        PrototypeBean prototypeBean2 = context.getBean(PrototypeBean.class);
-        System.out.println(prototypeBean2.hashCode());
-
-        PrototypeBean prototypeBean3 = context.getBean(PrototypeBean.class);
-        System.out.println(prototypeBean3.hashCode());
+//        SingletonBean singletonBean1 = context.getBean(SingletonBean.class);
+//        System.out.println(singletonBean1.hashCode());
+//
+//        SingletonBean singletonBean2 = context.getBean(SingletonBean.class);
+//        System.out.println(singletonBean2.hashCode());
+//
+//        SingletonBean singletonBean3 = context.getBean(SingletonBean.class);
+//        System.out.println(singletonBean3.hashCode());
+//
+//        PrototypeBean prototypeBean1 = context.getBean(PrototypeBean.class);
+//        System.out.println(prototypeBean1.hashCode());
+//
+//        PrototypeBean prototypeBean2 = context.getBean(PrototypeBean.class);
+//        System.out.println(prototypeBean2.hashCode());
+//
+//        PrototypeBean prototypeBean3 = context.getBean(PrototypeBean.class);
+//        System.out.println(prototypeBean3.hashCode());
 
         //When you run the application you can see that Singleton Bean is printed only once
         // and Prototype Bean is printed 3 times
@@ -91,15 +92,26 @@ public class SpringAnnotationsApplication {
         /*==================================================================================*/
 
 
-        ValueAnnotationDemo valueAnnotationDemo = context.getBean(ValueAnnotationDemo.class);
-        System.out.println(valueAnnotationDemo.getDefaultName()); //can see that the value we passed in @Value("") will be printed
+//        ValueAnnotationDemo valueAnnotationDemo = context.getBean(ValueAnnotationDemo.class);
+//        System.out.println(valueAnnotationDemo.getDefaultName()); //can see that the value we passed in @Value("") will be printed
+//
+//        System.out.println(valueAnnotationDemo.getHost());
+//        System.out.println(valueAnnotationDemo.getEmail());
+//        System.out.println(valueAnnotationDemo.getPassword());
+//
+//        System.out.println(valueAnnotationDemo.getJavaHome());
+//        System.out.println(valueAnnotationDemo.getHomeDir());
 
-        System.out.println(valueAnnotationDemo.getHost());
-        System.out.println(valueAnnotationDemo.getEmail());
-        System.out.println(valueAnnotationDemo.getPassword());
 
-        System.out.println(valueAnnotationDemo.getJavaHome());
-        System.out.println(valueAnnotationDemo.getHomeDir());
+        /*==================================================================================*/
+        PropertySourceDemo propertySourceDemo = context.getBean(PropertySourceDemo.class);
+        System.out.println(propertySourceDemo.getHost());
+        System.out.println(propertySourceDemo.getEmail());
+        System.out.println(propertySourceDemo.getPassword());
+
+        System.out.println(propertySourceDemo.getAppName());
+        System.out.println(propertySourceDemo.getAppDesc());
+
 
     }//End of main method
 
@@ -128,5 +140,14 @@ When using classes from the Java standard library or most third-party libraries,
 
 The `hashCode()` method is often used in conjunction with the `equals()` method to provide consistent behavior for comparing objects and using them in hash-based data structures. It is good practice to override both methods whenever you override one of them to maintain the contract between equality and hash code.
 
+==================================================================================
+
+(Q)is using lower case for package names a convention
+
+No, using lowercase for package names is not a convention in Java. The convention for package names in Java is to use lowercase letters and follow the reverse domain name notation. This means that package names should be in all lowercase letters and should be based on the organization's domain name in reverse order.
+
+For example, if a company has the domain name "example.com", the convention for package names would be "com.example.packageName". Each segment of the package name should be in lowercase letters.
+
+Using lowercase package names helps maintain consistency and readability in Java code. However, it's important to note that while lowercase package names are the convention, Java is case-sensitive, so using different cases for package names would result in different packages.
 
  */
