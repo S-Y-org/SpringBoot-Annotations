@@ -122,16 +122,98 @@ public class BookController {
 
 //    @RequestMapping(value = "/books/update/{id}", method = RequestMethod.PUT)
     //Can use the shortcut method
-    @PutMapping("/books/update/{id}") //Used to map the incoming HTTP PUT request to the specific method
+    @PutMapping("/books/update/{id}") //Used to map the incoming HTTP PUT request to the specific method.
+    //We can use consumes, produces attribute also.
     //{id} is called the URI template variable
-    public ResponseEntity<Book> updateBook(int id, Book udpatedBook){
+    //We have to bind the value of this {id} to a method argument. To do that we use @PathVariable
+    //Whenever a client call this updateBook REST API, then the client have to send the updated book information
+    // in the request as a JSON. For that we have to use the @RequestBody to retrieve the JSON from the request and
+    // convert that JSON the java Book Object (updatedBook)
+    public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book udpatedBook){
 
         System.out.println(id);
         System.out.println(udpatedBook.getTitle());
         System.out.println(udpatedBook.getDescription());
         udpatedBook.setId(id); //before passing the updatedBook to the 'ok' method, lets first set the id
-        return ResponseEntity.ok(udpatedBook); //Response entity has a generic 'ok' method
+        return ResponseEntity.ok(udpatedBook); //Response entity has a generic 'ok' method. it internally provides the HTTP 200 status.
 
+    }
+
+
+//    @RequestMapping(value = "/books/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/books/delete/{id}")
+    public ResponseEntity<String> deleteBook(@PathVariable int id){
+        System.out.println(id); //printing in the console
+        return ResponseEntity.ok("Book deleted Successfully!"); //output will be shown on postman
+    }
+    /*Note
+    In the code snippet above, `<String>` is passed as a type parameter to `ResponseEntity`.
+
+`ResponseEntity` is a generic class in Spring that represents the entire HTTP response, including the status code, headers, and body. By specifying `<String>` as the type parameter, you are indicating that the response body will be of type `String`.
+
+In the `deleteBook` method, you are returning a `ResponseEntity<String>` object with the message "Book deleted Successfully!" as the response body. This means that when this method is called, it will return an HTTP response with a status code of 200 (OK) and the specified message as the response body.
+    * */
+
+    @GetMapping("/books/{id}/{title}/{description}")
+    public ResponseEntity<Book> pathVariableDemo(@PathVariable int id,
+                                                 @PathVariable String title,
+                                                 @PathVariable String description){
+        System.out.println(id);
+        Book book = new Book();
+        book.setId(id);
+        book.setTitle(title);
+        book.setDescription(description);
+        return ResponseEntity.ok(book);
+
+    }
+    /*
+    (Q) What will happen if URI template variable name and method argument name are different.
+    Ex: {title}
+        @PathVariable String bookTitle
+
+        In such a case we need to pass the URI template variable name to the @PathVariable
+        Like this --> @PathVariable("title") String bookTitle
+
+        If u dont do this, the @PathVariable wont be able to bind the URI template variable value to the method argument.
+    ==================================================
+    (Q)in the above why do we need to use the setter methods
+
+    In the given code snippet, the `pathVariableDemo` method is annotated with `@GetMapping` and has three path variables: `id`, `title`, and `description`.
+
+The purpose of using setter methods in this context is to populate the `Book` object with the values extracted from the path variables. By calling the setter methods, you are assigning the respective values to the corresponding fields of the `Book` object.
+
+Here's a breakdown of the code:
+
+1. The method receives three path variables: `id`, `title`, and `description`.
+2. The `id` is printed to the console using `System.out.println(id);`.
+3. A new instance of the `Book` class is created using `Book book = new Book();`.
+4. The setter methods are called to set the `id`, `title`, and `description` values for the `book` object:
+   - `book.setId(id);`
+   - `book.setTitle(title);`
+   - `book.setDescription(description);`
+5. The `book` object is returned within a `ResponseEntity` object using `ResponseEntity.ok(book)`. This indicates a successful response (HTTP status code 200) with the `book` object as the response body.
+
+By using the setter methods, you are ensuring that the extracted path variable values are properly assigned to the corresponding fields of the `Book` object, making it ready to be returned as the response.
+
+
+
+    */
+
+    //http://localhost:8080/api/books/query?id=1&title=Core Java
+    //id=1&title=Core Java <-- This part is the query parameter
+    //We have to bind the value of this query parameters to the method arguments
+    //In order to do that we use the @RequestParam
+    @GetMapping("/books/query")
+    public ResponseEntity<Book> requestParamDemo(@RequestParam("id") int id,
+                                                 @RequestParam("title") String title){
+        System.out.println(id);
+        System.out.println(title);
+
+        Book book = new Book();
+        book.setId(id);
+        book.setTitle(title);
+
+        return ResponseEntity.ok(book);
     }
 
 
@@ -204,4 +286,5 @@ the HTTP status 201 to the client.
 Normally in our case above it returns 200 (ok) to the client. But ideally it has to return 201 (created) to the client.
 U can see above what modifications u have to do to add the HTTP status as a response to the REST API
 
+@RequestBody : used to retrieve the JSON from the request and covert that JSON into a java object
  */

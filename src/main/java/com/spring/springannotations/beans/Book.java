@@ -6,10 +6,16 @@ public class Book {
     private String title;
     private String description;
 
+    //AllArgsConstructor
     public Book(int id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
+    }
+
+    //NoArgsConstructor
+    public Book() {
+
     }
 
     public int getId() {
