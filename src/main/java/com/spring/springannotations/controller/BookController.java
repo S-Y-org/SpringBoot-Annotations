@@ -1,12 +1,11 @@
 package com.spring.springannotations.controller;
 
 import com.spring.springannotations.beans.Book;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 //@Controller
 //@ResponseBody /*Another thing we can do is, u can see that we have added @ResponseBody at method level
@@ -68,6 +67,13 @@ public class BookController {
 
     )
 
+    /*@GetMapping*/
+    @GetMapping( value = {"/book", "/core-java", "/java"} ) //Click on the @GetMapping. U will understand the logic nicely.
+    /*@GetMapping is the shortcut of @RequestMapping(value = {"/book", "/core-java", "/java"}, method = RequestMethod.GET)
+    U can also use the produces and consumes attributes as well
+    */
+
+
     /*@RequestMapping with Multiple URI*/
     //@RequestMapping(value = {"/book", "/core-java", "/java"}) //This is an example
     // for @RequestMapping with multiple URI
@@ -82,7 +88,40 @@ public class BookController {
     }
 
 
-}
+    //@RequestMapping(value = "/book/create", method = RequestMethod.POST) //This annotation is used to map the incoming request to this particular method. When
+    // we specify the method as POST, it is used to map the incoming POST request to this particular method.
+    //Instead of all these, we can use the @PostMapping
+    //@PostMapping(value = "/book/create",consumes = MediaType.APPLICATION_JSON_VALUE) //We can use consumes, produces attribute also.
+    // It means this REST API consumes the data that we have specified using the MediaType.
+    //Here the REST API will consume the data that is in a JSON format from the request.
+    //Next we need to use one more annotation. That is the @RequestBody.
+    //REMEMBER : Its @RequestBody ah !!!!, NOT fucking @ResponseBody.
+    //Understand the fucking logic.
+    //@RequestBody is responsible to retrieve the JSON data from the request body and it will convert
+    // that JSON into the book java object of type Book
+    //We can test the GET from the browser itself.
+    //But to test the POST, PUT, DELETE we have to use Postman client
+//    @ResponseStatus(value = HttpStatus.CREATED) //201
+//    public Book createBook(@RequestBody Book book){
+//        System.out.println(book.getId()); //These outputs appear in the console
+//        System.out.println(book.getTitle());
+//        System.out.println(book.getDescription());
+//        return book;
+//    }
+
+    /*There is another way to get the preferred HTTP status response is to use a ResponseEntity class*/
+    //ResponseEntity is a generic class. We have to pass Book as a type.
+    //We need to return the instance of response entity
+    @PostMapping(value = "/book/create",consumes = MediaType.APPLICATION_JSON_VALUE) //We can use consumes, produces attribute also.
+    public ResponseEntity<Book> createBook(@RequestBody Book book){
+        System.out.println(book.getId()); //These outputs appear in the console
+        System.out.println(book.getTitle());
+        System.out.println(book.getDescription());
+        return new ResponseEntity<>(book, HttpStatus.CREATED); //We pass the book and the required HTTP status to the constructor.
+    }
+
+
+} //End of BookController
 
 //NOTES :
 
@@ -139,4 +178,16 @@ The `produces` and `consumes` attributes are used to specify the media types (co
 2. `consumes`: It specifies the media types that the API endpoint can consume as a request payload. It restricts the content type that the server can accept from the client. For example, if an endpoint consumes JSON data, you can specify `consumes = "application/json"` to indicate that the request payload should be in JSON format. This helps in validating and processing the incoming request payload.
 
 By using `produces` and `consumes` attributes, you can ensure that your RESTful API endpoints adhere to a specific set of media types, which improves interoperability and allows clients and servers to communicate effectively by understanding and respecting the supported content types.
+===============================================================================================
+
+
+@GetMapping : Used to map the incoming HTTTP GET request to the particular method
+
+@PostMapping : Used to map the incoming HTTTP POST request to the particular method.
+
+IMPOTANT POINT - Whenever we create a REST API that create a new resource, then that REST API have to return
+the HTTP status 201 to the client.
+Normally in our case above it returns 200 (ok) to the client. But ideally it has to return 201 (created) to the client.
+U can see above what modifications u have to do to add the HTTP status as a response to the REST API
+
  */
