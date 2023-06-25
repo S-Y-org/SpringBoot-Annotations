@@ -112,12 +112,26 @@ public class BookController {
     /*There is another way to get the preferred HTTP status response is to use a ResponseEntity class*/
     //ResponseEntity is a generic class. We have to pass Book as a type.
     //We need to return the instance of response entity
-    @PostMapping(value = "/book/create",consumes = MediaType.APPLICATION_JSON_VALUE) //We can use consumes, produces attribute also.
+    @PostMapping(value = "/books/create",consumes = MediaType.APPLICATION_JSON_VALUE) //We can use consumes, produces attribute also.
     public ResponseEntity<Book> createBook(@RequestBody Book book){
         System.out.println(book.getId()); //These outputs appear in the console
         System.out.println(book.getTitle());
         System.out.println(book.getDescription());
         return new ResponseEntity<>(book, HttpStatus.CREATED); //We pass the book and the required HTTP status to the constructor.
+    }
+
+//    @RequestMapping(value = "/books/update/{id}", method = RequestMethod.PUT)
+    //Can use the shortcut method
+    @PutMapping("/books/update/{id}") //Used to map the incoming HTTP PUT request to the specific method
+    //{id} is called the URI template variable
+    public ResponseEntity<Book> updateBook(int id, Book udpatedBook){
+
+        System.out.println(id);
+        System.out.println(udpatedBook.getTitle());
+        System.out.println(udpatedBook.getDescription());
+        udpatedBook.setId(id); //before passing the updatedBook to the 'ok' method, lets first set the id
+        return ResponseEntity.ok(udpatedBook); //Response entity has a generic 'ok' method
+
     }
 
 
