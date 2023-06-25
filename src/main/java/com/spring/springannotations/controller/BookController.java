@@ -216,6 +216,25 @@ By using the setter methods, you are ensuring that the extracted path variable v
         return ResponseEntity.ok(book);
     }
 
+    /*
+    (Q)whats the reason for the ? in http://localhost:8080/api/books/query?id=1&title=Core Java
+
+The question mark (`?`) is used as a delimiter in the URL to separate the base URL from the query parameters in an HTTP request. In the given example URL `http://localhost:8080/api/books/query?id=1&title=Core%20Java`, the question mark marks the start of the query parameters section.
+
+Query parameters allow you to pass additional information to the server as part of an HTTP request. They consist of key-value pairs separated by an ampersand (`&`). In the example, there are two query parameters:
+
+1. `id=1`: This parameter specifies the value `1` for the `id` key.
+2. `title=Core%20Java`: This parameter specifies the value `Core Java` for the `title` key. Note that the space is URL-encoded as `%20`.
+
+The server can use these query parameters to retrieve specific data or perform certain actions based on the values provided. In the context of a RESTful API for managing books, the query parameters could be used to search for books by their ID or title, for example.
+
+When the server receives an HTTP request with query parameters, it can extract the values using the appropriate mechanisms provided by the web framework or server-side technology being used.
+
+
+
+
+     */
+
 
 } //End of BookController
 
